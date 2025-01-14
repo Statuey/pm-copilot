@@ -1,0 +1,10 @@
+{
+  "name": "generateMermaid",
+  "version": "1.0.0",
+  "description": "生成Mermaid流程图的云函数",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^1.6.5",
+    "wx-server-sdk": "latest"
+  }
+}

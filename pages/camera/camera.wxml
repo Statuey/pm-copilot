@@ -1,0 +1,108 @@
+<view class="page">
+  <view class="header">
+    <view class="title-container">
+      <text class="title">流程图生成助手</text>
+      <text class="subtitle">一键解析流程图</text>
+    </view>
+  </view>
+
+  <view class="content">
+    <view class="card upload-card">
+      <view class="card-header">
+        <text class="card-title">上传图片</text>
+        <text class="card-subtitle">支持照片、截图或手绘图片</text>
+      </view>
+      <view class="card-content">
+        <view class="upload-area" bindtap="chooseImage">
+          <block wx:if="{{tempImagePath}}">
+            <image 
+              src="{{tempImagePath}}" 
+              mode="aspectFit" 
+              class="preview-image"
+            ></image>
+          </block>
+          <view class="upload-placeholder" wx:else>
+            <text class="upload-icon">📸</text>
+            <text class="upload-text">点击上传流程图</text>
+            <text class="upload-desc">图片越清晰，识别效果越好</text>
+          </view>
+        </view>
+      </view>
+      <view class="card-footer">
+        <view class="button-group">
+          <button 
+            class="secondary-btn"
+            bindtap="chooseImage"
+            wx:if="{{tempImagePath}}"
+          >重新选择</button>
+          <button 
+            class="primary-btn {{loading ? 'loading' : ''}}"
+            bindtap="processImage"
+            disabled="{{loading || !tempImagePath}}"
+          >
+            <text class="btn-text">{{loading ? '正在解析...' : '开始解析'}}</text>
+            <text class="iconfont icon-arrow" wx:if="{{!loading}}">→</text>
+          </button>
+        </view>
+      </view>
+    </view>
+
+    <block wx:if="{{mermaidCode}}">
+      <view class="card preview-card">
+        <view class="card-header">
+          <text class="card-title">解析结果</text>
+          <text class="card-subtitle">点击图片可放大查看</text>
+        </view>
+        <view class="card-content">
+          <view class="preview-container" bindtap="previewImage">
+            <image 
+              wx:if="{{imageUrl}}" 
+              src="{{imageUrl}}" 
+              mode="aspectFit"
+              class="preview-image"
+            ></image>
+            <view class="loading-container" wx:else>
+              <view class="loading-spinner"></view>
+              <text>正在生成...</text>
+            </view>
+          </view>
+        </view>
+        <view class="card-footer action-footer">
+          <button class="action-btn" bindtap="copyCode">
+            <text class="iconfont">📋</text>
+            <text>复制代码</text>
+            <text class="action-desc">可粘贴到draw.io编辑</text>
+          </button>
+          <button class="action-btn" bindtap="saveImage">
+            <text class="iconfont">💾</text>
+            <text>保存图片</text>
+          </button>
+        </view>
+      </view>
+    </block>
+
+    <view class="card tips-card" wx:if="{{!mermaidCode}}">
+      <view class="card-header">
+        <text class="card-title">✨ 使用技巧</text>
+      </view>
+      <view class="card-content">
+        <view class="tip-item">
+          <text class="tip-icon">📱</text>
+          <text class="tip-text">可以直接拍照或上传截图</text>
+        </view>
+        <view class="tip-item">
+          <text class="tip-icon">✏️</text>
+          <text class="tip-text">支持手绘流程图识别转换</text>
+        </view>
+        <view class="tip-item">
+          <text class="tip-icon">🔍</text>
+          <text class="tip-text">图片越清晰，识别效果越好</text>
+        </view>
+        <view class="tip-item">
+          <text class="tip-icon">💫</text>
+          <text class="tip-text">自动美化，生成标准流程图</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view> 

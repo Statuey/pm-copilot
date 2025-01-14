@@ -1,0 +1,92 @@
+<view class="page">
+  <view class="header">
+    <view class="title-container">
+      <text class="title">流程图生成助手</text>
+      <text class="subtitle">一句话生成专业流程图</text>
+    </view>
+  </view>
+
+  <view class="content">
+    <view class="card input-card">
+      <view class="card-content">
+        <textarea
+          class="text-input"
+          placeholder="用简单的话描述你的流程，比如：1. 用户打开小程序;2. 如果已登录，显示首页;3. 如果未登录，跳转到登录页;4. 登录成功后返回首页;  💡 描述越清晰，生成的图越准确"
+          value="{{inputText}}"
+          bindinput="onInputChange"
+          maxlength="-1"
+          auto-height
+          style="min-height: 240rpx;"
+        ></textarea>
+      </view>
+      <view class="card-footer">
+        <button 
+          class="primary-btn {{loading ? 'loading' : ''}}"
+          bindtap="generateFlowchart"
+          disabled="{{loading || !inputText}}"
+        >
+          <text class="btn-text">{{loading ? '正在绘制...' : '立即生成'}}</text>
+          <text class="iconfont icon-arrow" wx:if="{{!loading}}">→</text>
+        </button>
+      </view>
+    </view>
+
+    <block wx:if="{{mermaidCode}}">
+      <view class="card preview-card">
+        <view class="card-header">
+          <text class="card-title">预览效果</text>
+          <text class="card-subtitle">点击图片可放大查看</text>
+        </view>
+        <view class="card-content">
+          <view class="preview-container" bindtap="previewImage">
+            <image 
+              wx:if="{{imageUrl}}" 
+              src="{{imageUrl}}" 
+              mode="aspectFit"
+              class="preview-image"
+            ></image>
+            <view class="loading-container" wx:else>
+              <view class="loading-spinner"></view>
+              <text>正在绘制...</text>
+            </view>
+          </view>
+        </view>
+        <view class="card-footer action-footer">
+          <button class="action-btn" bindtap="copyCode">
+            <text class="iconfont">📋</text>
+            <text>复制代码</text>
+            <text class="action-desc">可粘贴到draw.io编辑</text>
+          </button>
+          <button class="action-btn" bindtap="saveImage">
+            <text class="iconfont">💾</text>
+            <text>保存图片</text>
+          </button>
+        </view>
+      </view>
+    </block>
+
+    <view class="card tips-card" wx:if="{{!mermaidCode}}">
+      <view class="card-header">
+        <text class="card-title">✨ 使用技巧</text>
+      </view>
+      <view class="card-content">
+        <view class="tip-item">
+          <text class="tip-icon">💡</text>
+          <text class="tip-text">用简单的语言描述你的流程</text>
+        </view>
+        <view class="tip-item">
+          <text class="tip-icon">🔄</text>
+          <text class="tip-text">可以包含条件判断和分支场景</text>
+        </view>
+        <view class="tip-item">
+          <text class="tip-icon">📱</text>
+          <text class="tip-text">支持业务流程、用户旅程等场景</text>
+        </view>
+        <view class="tip-item">
+          <text class="tip-icon">🎨</text>
+          <text class="tip-text">生成的图片可以直接保存使用</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view> 

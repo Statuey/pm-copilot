@@ -1,0 +1,12 @@
+# 依赖
+node_modules/
+
+# 配置文件
+config/config.json
+
+# 日志
+*.log
+
+# 其他
+.DS_Store
+.env 

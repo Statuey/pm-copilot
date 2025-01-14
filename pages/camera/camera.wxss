@@ -1,0 +1,287 @@
+.page {
+  min-height: 100vh;
+  background: #f8f9fa;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.header {
+  padding: 40rpx 30rpx;
+  background: linear-gradient(135deg, #4A90E2 0%, #6AB5F3 100%);
+  color: white;
+  border-radius: 0 0 40rpx 40rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(74, 144, 226, 0.2);
+}
+
+.title-container {
+  text-align: center;
+}
+
+.title {
+  font-size: 48rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+  display: block;
+}
+
+.subtitle {
+  font-size: 28rpx;
+  opacity: 0.9;
+  display: block;
+}
+
+.content {
+  padding: 0 30rpx;
+}
+
+.card {
+  background: white;
+  border-radius: 24rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 30rpx;
+  border-bottom: 2rpx solid #f5f5f5;
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+}
+
+.card-subtitle {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 8rpx;
+  display: block;
+}
+
+.card-content {
+  padding: 30rpx;
+}
+
+.upload-area {
+  width: 100%;
+  height: 400rpx;
+  background: #f8f9fa;
+  border-radius: 16rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #999;
+}
+
+.upload-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.upload-text {
+  font-size: 32rpx;
+  margin-bottom: 10rpx;
+}
+
+.upload-desc {
+  font-size: 24rpx;
+  opacity: 0.8;
+}
+
+.card-footer {
+  padding: 30rpx;
+  border-top: 2rpx solid #f5f5f5;
+}
+
+.button-group {
+  display: flex;
+  gap: 20rpx;
+}
+
+.secondary-btn {
+  flex: 1;
+  background: #f5f7fa;
+  color: #666;
+  border-radius: 40rpx;
+  padding: 20rpx 0;
+  font-size: 28rpx;
+  border: none;
+}
+
+.primary-btn {
+  flex: 2;
+  background: #4A90E2;
+  color: white;
+  border-radius: 40rpx;
+  padding: 20rpx 0;
+  font-size: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.primary-btn.loading {
+  background: #89c4e1;
+}
+
+.btn-text {
+  margin-right: 10rpx;
+}
+
+.icon-arrow {
+  font-size: 32rpx;
+}
+
+.preview-container {
+  width: 100%;
+  height: 400rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 8rpx;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #999;
+  font-size: 28rpx;
+}
+
+.loading-spinner {
+  width: 60rpx;
+  height: 60rpx;
+  border: 4rpx solid #f3f3f3;
+  border-top: 4rpx solid #1296db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20rpx;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.secondary-btn[disabled] {
+  opacity: 0.5;
+}
+
+.secondary-btn text {
+  margin: 0 10rpx;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  padding: 16rpx 24rpx;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+
+.icon-btn .iconfont {
+  margin-right: 8rpx;
+}
+
+.code-container {
+  background: #f8f9fa;
+  padding: 20rpx;
+  border-radius: 12rpx;
+  height: 200rpx;
+}
+
+.code-text {
+  font-family: monospace;
+  font-size: 24rpx;
+  color: #333;
+  white-space: pre;
+}
+
+.tips-card .card-content {
+  padding: 20rpx;
+}
+
+.tip-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  border-bottom: 2rpx solid #f5f5f5;
+}
+
+.tip-item:last-child {
+  border-bottom: none;
+}
+
+.tip-icon {
+  width: 40rpx;
+  height: 40rpx;
+  background: #1296db;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  margin-right: 20rpx;
+}
+
+.tip-text {
+  font-size: 28rpx;
+  color: #666;
+  flex: 1;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  padding: 20rpx 40rpx;
+  font-size: 28rpx;
+  color: #666;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+
+.action-btn text {
+  margin: 6rpx 0;
+}
+
+.action-btn .action-desc {
+  font-size: 20rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+.action-btn:after {
+  display: none;
+} 
