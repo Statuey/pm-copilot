@@ -6,6 +6,30 @@ Page({
     loading: false
   },
 
+  // 校验 mermaid 代码格式
+  validateMermaidCode(code) {
+    if (!code || typeof code !== 'string') return false;
+    
+    // 检查是否包含基本的流程图关键字
+    const validKeywords = ['graph', 'flowchart', 'sequenceDiagram', 'classDiagram', 'stateDiagram'];
+    const hasValidStart = validKeywords.some(keyword => code.trim().toLowerCase().startsWith(keyword));
+    
+    // 检查是否包含基本的节点和连接符
+    const hasNodes = /[A-Za-z0-9_]+/.test(code);
+    const hasConnectors = /[->]/.test(code);
+    
+    return hasValidStart && hasNodes && hasConnectors;
+  },
+
+  // 分享功能
+  onShareAppMessage() {
+    return {
+      title: '流程图生成助手 - 图片转流程图',
+      path: '/pages/camera/camera',
+      imageUrl: this.data.imageUrl || this.data.tempImagePath || ''
+    }
+  },
+
   // 选择图片
   async chooseImage() {
     try {
@@ -40,22 +64,102 @@ Page({
         }
       });
 
-      if (result.result && result.result.success) {
-        this.setData({
-          mermaidCode: result.result.mermaidCode,
-          imageUrl: result.result.imageUrl
+      // 检查接口返回的错误信息
+      if (!result || !result.result) {
+        this.setData({ 
+          loading: false,
+          mermaidCode: '',
+          imageUrl: ''
         });
-      } else {
-        throw new Error(result.result.error || '处理失败');
+        wx.showModal({
+          title: '提示',
+          content: '图片处理失败，服务暂时不可用，请稍后再试',
+          showCancel: false
+        });
+        return;
       }
+      
+      // 处理 HTTP 400 错误
+      if (result.result.error && result.result.error.includes('status code 400')) {
+        this.setData({ 
+          loading: false,
+          mermaidCode: '',
+          imageUrl: ''
+        });
+        wx.showModal({
+          title: '提示',
+          content: '无法识别图片中的流程图，请确保图片清晰且包含完整的流程图',
+          showCancel: false
+        });
+        return;
+      }
+      
+      // 处理其他错误
+      if (result.result.error) {
+        this.setData({ 
+          loading: false,
+          mermaidCode: '',
+          imageUrl: ''
+        });
+        wx.showModal({
+          title: '提示',
+          content: '图片处理失败，请检查网络后重试',
+          showCancel: false
+        });
+        return;
+      }
+      
+      if (!result.result.success) {
+        this.setData({ 
+          loading: false,
+          mermaidCode: '',
+          imageUrl: ''
+        });
+        wx.showModal({
+          title: '提示',
+          content: '图片处理失败，请更换图片后重试',
+          showCancel: false
+        });
+        return;
+      }
+
+      // 添加校验
+      if (!this.validateMermaidCode(result.result.mermaidCode)) {
+        this.setData({ 
+          loading: false,
+          mermaidCode: '',
+          imageUrl: ''
+        });
+        wx.showModal({
+          title: '提示',
+          content: '无法从图片中识别出有效的流程图，请尝试其他图片',
+          showCancel: false
+        });
+        return;
+      }
+      
+      this.setData({
+        loading: false,
+        mermaidCode: result.result.mermaidCode,
+        imageUrl: result.result.imageUrl
+      });
     } catch (error) {
       console.error('处理失败：', error);
-      wx.showToast({
-        title: '处理失败，请重试',
-        icon: 'none'
+      // 先清空错误数据和重置状态
+      this.setData({
+        loading: false,
+        mermaidCode: '',
+        imageUrl: ''
       });
-    } finally {
-      this.setData({ loading: false });
+      // 再显示错误提示
+      wx.showModal({
+        title: '提示',
+        content: '图片处理失败，请检查图片是否包含流程图',
+        showCancel: false,
+        complete: () => {
+          console.log('错误提示显示完成');
+        }
+      });
     }
   },
 
